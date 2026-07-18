@@ -26,7 +26,7 @@
             z-index: 1;
         }
 
-        /* TOMBOL MULAI ANTI-BLOKIR BROWSER */
+        /* TOMBOL MULAI UNTUK UNLOCK AUDIO */
         .gatekeeper {
             position: absolute;
             z-index: 100;
@@ -178,7 +178,7 @@
 
     <div class="space-bg"></div>
 
-    <!-- Tombol Khusus untuk unlock Audio Browser -->
+    <!-- Tombol Pembuka -->
     <div class="gatekeeper" id="auth-gate">
         <button class="start-btn" onclick="unlockAndStart()">Open Special Gift ✨</button>
         <p>Turn on your sound</p>
@@ -197,7 +197,7 @@
         </div>
     </div>
 
-    <!-- Audio Tautan Lagu: Last Night on Earth -->
+    <!-- Musik Last Night on Earth -->
     <audio id="bgMusic" src="https://archive.org/download/greenday_202002/Green%20Day%20-%20Last%20Night%20On%20Earth.mp3" loop preload="auto"></audio>
 
     <script>
@@ -205,20 +205,17 @@
         
         const music = document.getElementById("bgMusic");
 
-        // FUNGSI UTAMA UNTUK UNLOCK AUDIO & MULAI ANIMASI
         function unlockAndStart() {
-            // Sembunyikan tombol pembuka
+            // Sembunyikan tombol
             document.getElementById("auth-gate").style.opacity = "0";
             document.getElementById("auth-gate").style.pointerEvents = "none";
 
-            // Paksa musik berjalan lewat trigger klik user langsung
-            music.play().then(() => {
-                console.log("Audio successfully loaded and playing.");
-            }).catch(err => {
-                console.log("Audio failed to play automatically:", err);
+            // Jalankan musik
+            music.play().catch(function(err) {
+                console.log("Audio di-block browser:", err);
             });
 
-            // Jalankan hitung mundur setelah tombol hilang
+            // Mulai hitung mundur
             setTimeout(runCountdown, 400);
         }
 
@@ -233,7 +230,7 @@
                     cd.style.transform = "scale(1.3)";
                     cd.style.opacity = "1";
                     
-                    setTimeout(() => {
+                    setTimeout(function() {
                         if (currentIdx < steps.length - 1) {
                             cd.style.transform = "scale(0.7)";
                             cd.style.opacity = "0";
@@ -260,7 +257,7 @@
             for (let j = 1; j <= totalPhotos; j++) {
                 const card = document.createElement("div");
                 card.className = "polaroid-card";
-                card.innerHTML = `<img src="b${j}.png" alt="Dela ${j}">`;
+                card.innerHTML = "<img src='b" + j + ".png' alt='Dela " + j + "'>";
                 orbit.appendChild(card);
 
                 const t = (j / totalPhotos) * 2 * Math.PI - Math.PI/2; 
@@ -270,14 +267,14 @@
                 const posX = x * spreadFactor;
                 const posY = y * spreadFactor;
 
-                setTimeout(() => {
+                setTimeout(function() {
                     card.style.opacity = "1";
                     const cardRotate = Math.random() * 16 - 8;
-                    card.style.transform = `translate(calc(-50% + ${posX}px), calc(-50% + ${posY}px)) rotate(${cardRotate}deg) scale(1)`;
+                    card.style.transform = "translate(calc(-50% + " + posX + "px), calc(-50% + " + posY + "px)) rotate(" + cardRotate + "deg) scale(1)";
                 }, j * 200);
             }
 
-            setTimeout(() => {
+            setTimeout(function() {
                 document.getElementById("message-node").classList.add("pop");
                 orbit.classList.add("orbit-rotating");
                 startTyping();
