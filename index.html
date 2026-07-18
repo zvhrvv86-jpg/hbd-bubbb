@@ -5,153 +5,236 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Dela Silvira ✨</title>
     <style>
-        :root {
-            --bg-color: #0f172a;
-            --accent: #f472b6;
-            --glass: rgba(255, 255, 255, 0.05);
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body, html {
+            background-color: #050508;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            height: 100%;
+            overflow: hidden;
+            cursor: pointer;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background-color: var(--bg-color);
-            color: #fff;
-            font-family: 'Inter', -apple-system, sans-serif;
-            min-height: 100vh;
+        /* Background Gelap Sunyi */
+        .main-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            overflow-x: hidden;
+            background: radial-gradient(circle, #0f0f15 0%, #050508 100%);
         }
 
-        /* ANIMASI AURORA BACKGROUND */
-        .aurora {
+        /* Efek Kilat Flash Kamera */
+        .flash-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background: linear-gradient(125deg, #1e1b4b, #312e81, #be185d, #0f172a);
-            background-size: 400% 400%;
-            animation: moveGradient 15s ease infinite;
-        }
-        @keyframes moveGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .container { max-width: 700px; width: 90%; text-align: center; padding-top: 50px; }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #fff, #f472b6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .letter-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 30px;
-            border-radius: 25px;
-            margin: 40px 0;
-            text-align: left;
-            line-height: 1.8;
-            font-size: 1.1rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .cursor { display: inline-block; width: 4px; height: 1.2rem; background: var(--accent); animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        /* MASONRY GRID FOTO */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin-bottom: 100px;
-        }
-
-        .photo-card {
-            background: #fff;
-            padding: 8px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: #ffffff;
             opacity: 0;
-            transform: translateY(30px);
+            z-index: 99;
+            pointer-events: none;
         }
-        .photo-card.visible { opacity: 1; transform: translateY(0); }
-        .photo-card:hover { transform: scale(1.05) rotate(0deg) !important; }
-        .photo-card img { width: 100%; border-radius: 5px; aspect-ratio: 1; object-fit: cover; }
+        .flash-active {
+            animation: cameraFlash 0.4s ease-out;
+        }
+        @keyframes cameraFlash {
+            0% { opacity: 0.9; }
+            100% { opacity: 0; }
+        }
 
-        .btn-music {
-            position: fixed; bottom: 30px; right: 30px;
-            background: var(--accent); color: white; border: none;
-            width: 60px; height: 60px; border-radius: 50%;
-            cursor: pointer; font-size: 1.5rem; z-index: 99;
-            box-shadow: 0 4px 15px rgba(244, 114, 182, 0.4);
+        /* Foto Polaroid Center Stage (Lowlight Flash Aesthetic) */
+        .photo-stage {
+            position: absolute;
+            width: 280px;
+            background: #ffffff;
+            padding: 12px 12px 35px 12px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+            border-radius: 2px;
+            transform: scale(0.9) rotate(-3deg);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: 5;
+        }
+        .photo-stage.active {
+            opacity: 1;
+            transform: scale(1) rotate(var(--r, 2deg));
+        }
+        .photo-stage img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            /* Efek soft-focus / lowlight grainy */
+            filter: brightness(90%) contrast(110%) saturate(90%);
+        }
+
+        /* Teks Berjalan Sinematik */
+        .text-stage {
+            position: absolute;
+            bottom: 12%;
+            left: 5%;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            z-index: 10;
+            background: rgba(5, 5, 8, 0.6);
+            backdrop-filter: blur(8px);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .text-line {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: #e2e2e9;
+            min-height: 50px;
+        }
+
+        /* Petunjuk Interaksi */
+        .hint {
+            position: absolute;
+            top: 30px;
+            font-size: 0.75rem;
+            color: #666680;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        /* Musik Tersembunyi */
+        .music-indicator {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            font-size: 0.8rem;
+            color: #ff7597;
+            letter-spacing: 1px;
+            opacity: 0.6;
+            z-index: 100;
+        }
+
+        @keyframes pulse { 0% { opacity: 0.3; } 100% { opacity: 0.8; } }
+
+        @media (max-width: 480px) {
+            .photo-stage { width: 240px; }
+            .text-line { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="aurora"></div>
+    <div class="flash-overlay" id="flash"></div>
 
-    <div class="container">
-        <h1>Happy Birthday, Dela! ✨</h1>
-        <p style="color: #94a3b8; letter-spacing: 5px; text-transform: uppercase;">to my favorite person</p>
+    <div class="main-wrapper" onclick="nextStep()">
+        <div class="hint">Tap anywhere to continue...</div>
 
-        <div class="letter-card">
-            <span id="text"></span><span class="cursor"></span>
+        <!-- Wadah Polaroid Tunggal yang Berganti Isinya -->
+        <div class="photo-stage" id="polaroid">
+            <img src="b1.png" id="polaroid-img" alt="Memory">
         </div>
 
-        <div class="gallery" id="gallery">
-            <!-- Loop foto b1 - b15 -->
+        <!-- Wadah Teks -->
+        <div class="text-stage">
+            <div class="text-line" id="story-text"></div>
         </div>
     </div>
 
-    <button class="btn-music" onclick="playMusic()">🎵</button>
-    <audio id="audio" src="https://archive.org/download/greenday_202002/Green%20Day%20-%20Last%20Night%20On%20Earth.mp3" loop></audio>
+    <div class="music-indicator" id="music-status">🎵 Last Night on Earth</div>
+    <audio id="bgMusic" src="https://archive.org/download/greenday_202002/Green%20Day%20-%20Last%20Night%20On%20Earth.mp3" loop></audio>
 
     <script>
-        // 1. ANIMASI TULISAN
-        const msg = "hbd Dela Silvira... jujurly, this day is meant to celebrate how amazing you are. makasih udah jadi orang yang selalu nemenin aku, dengerin random talk aku, dan jadi comfort space buat aku. i hope this year brings you nothing but joy, less stress, and more wins! stay cute, stay yourself, and please keep shining. luv u! 🤍";
-        let i = 0;
-        function typeWriter() {
-            if (i < msg.length) {
-                document.getElementById("text").innerHTML += msg.charAt(i);
-                i++;
-                setTimeout(typeWriter, 50);
+        // Alur cerita per ketukan (Storyline + Hubungan dengan file Foto)
+        const story = [
+            { text: "hey dela silvira... happy level up day. ✨", img: "b1.png" },
+            { text: "jujurly, i just wanna say im so grateful to have you around.", img: "b2.png" },
+            { text: "makasih bgt udah mau jadi comfort character yang selalu ada...", img: "b3.png" },
+            { text: "...terutama pas dunia lagi ga asik dan aku lagi jatuh-jatuhnya. 🤝", img: "b4.png" },
+            { text: "i mean, gimana bisa ada orang secantik dan selucu kamu...", img: "b5.png" },
+            { text: "tapi di saat yang sama random-nya dapet bgt? wkwk. 🧸", img: "b6.png" },
+            { text: "bener-bener main character energy yang ga ada lawan. 🌟", img: "b7.png" },
+            { text: "rent free bgt di kepala aku tiap hari, gapaham lagi. 🥰", img: "b8.png" },
+            { text: "di usia yang baru ini, semoga semesta selalu baik ya sama kamu.", img: "b9.png" },
+            { text: "kurang-kurangin stress-nya, banyakin ketawanya. 🌸", img: "b10.png" },
+            { text: "semoga semua plan dan mimpi kamu cepat di-approve semesta. 💎", img: "b11.png" },
+            { text: "stay as you are ya, del. jangan berubah sedikit pun. 🤍", img: "b12.png" },
+            { text: "and lowkey, im praying we last forever... semoga kita jadi selamanya ya. 🔐", img: "b13.png" },
+            { text: "sekali lagi, happy birthday favorite human-ku! 🎉", img: "b14.png" },
+            { text: "you & me vs the world. forever yours. 🔒 (end)", img: "b15.png" }
+        ];
+
+        let currentStep = 0;
+        let isTyping = false;
+        const music = document.getElementById("bgMusic");
+
+        function typeEffect(element, text, speed = 40) {
+            element.innerHTML = "";
+            let i = 0;
+            isTyping = true;
+            
+            function typing() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typing, speed);
+                } else {
+                    isTyping = false;
+                }
+            }
+            typing();
+        }
+
+        function triggerFlash() {
+            const flash = document.getElementById("flash");
+            flash.classList.remove("flash-active");
+            void flash.offsetWidth; // Kebalikan trik reflow untuk reset animasi
+            flash.classList.add("flash-active");
+        }
+
+        function nextStep() {
+            // Jalankan musik di ketukan pertama
+            if (music.paused) {
+                music.play().catch(e => console.log("Audio diaktifkan"));
+                document.getElementById("music-status").innerHTML = "🔊 Playing...";
+            }
+
+            if (isTyping) return; // Kunci ketukan jika teks masih berjalan
+
+            if (currentStep < story.length) {
+                const pBox = document.getElementById("polaroid");
+                const pImg = document.getElementById("polaroid-img");
+                const tBox = document.getElementById("story-text");
+
+                // Efek transisi foto menghilang sebentar
+                pBox.classList.remove("active");
+
+                setTimeout(() => {
+                    // Ganti foto dan teks
+                    pImg.src = story[currentStep].img;
+                    typeEffect(tBox, story[currentStep].text);
+
+                    // Beri rotasi acak biar gaya polaroid-nya berasa natural
+                    const randomRotate = Math.random() * 12 - 6;
+                    pBox.style.setProperty('--r', `${randomRotate}deg`);
+
+                    // Efek jepretan kamera (Flash) saat foto berganti
+                    triggerFlash();
+                    
+                    pBox.classList.add("active");
+                    currentStep++;
+                }, 300);
+
+            } else {
+                // Jika sudah selesai, reset ke awal ceritanya
+                currentStep = 0;
+                nextStep();
             }
         }
-        typeWriter();
 
-        // 2. GENERATE FOTO OTOMATIS
-        const gallery = document.getElementById('gallery');
-        for (let j = 1; j <= 15; j++) {
-            const div = document.createElement('div');
-            div.className = 'photo-card';
-            div.style.transitionDelay = `${j * 0.1}s`;
-            div.style.transform = `rotate(${Math.random() * 10 - 5}deg)`;
-            div.innerHTML = `<img src="b${j}.png" onerror="this.style.display='none'">`;
-            gallery.appendChild(div);
-        }
-
-        // 3. ANIMASI SCROLL REVEAL
-        window.addEventListener('scroll', () => {
-            document.querySelectorAll('.photo-card').forEach(p => {
-                if(p.getBoundingClientRect().top < window.innerHeight - 100) p.classList.add('visible');
-            });
-        });
-        // Trigger reveal buat yang di atas
-        setTimeout(() => document.querySelectorAll('.photo-card').forEach(p => p.classList.add('visible')), 500);
-
-        // 4. MUSIK
-        function playMusic() {
-            const audio = document.getElementById("audio");
-            if(audio.paused) { audio.play(); } else { audio.pause(); }
-        }
+        // Mulai otomatis saat layar pertama kali di-tap
+        window.onload = function() {
+            nextStep();
+        };
     </script>
 </body>
 </html>
