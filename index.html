@@ -15,16 +15,50 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            perspective: 1000px; /* Efek 3D Kedalaman */
+            perspective: 1000px;
         }
 
-        /* Latar Belakang Gelap Ambient */
         .space-bg {
             position: absolute;
             width: 100%;
             height: 100%;
             background: radial-gradient(circle at center, #111118 0%, #040406 100%);
             z-index: 1;
+        }
+
+        /* TOMBOL MULAI ANTI-BLOKIR BROWSER */
+        .gatekeeper {
+            position: absolute;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.5s ease;
+        }
+        .start-btn {
+            background: linear-gradient(45deg, #ff7597, #ffb3c6);
+            color: #050508;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(255, 117, 151, 0.4);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px rgba(255, 117, 151, 0.7);
+        }
+        .gatekeeper p {
+            font-size: 0.8rem;
+            color: #666680;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         /* INTRO LAYER (Countdown) */
@@ -36,6 +70,7 @@
             align-items: center;
             width: 100%;
             height: 100%;
+            pointer-events: none;
         }
         #countdown-text {
             font-size: 4rem;
@@ -49,6 +84,7 @@
             transition: all 0.4s ease;
             text-align: center;
             padding: 0 20px;
+            opacity: 0;
         }
 
         /* MAIN SHOWCASE STAGE */
@@ -64,7 +100,6 @@
             transition: opacity 2s ease;
         }
 
-        /* CONTAINER UNTUK REVOLUSI BENTUK LOVE */
         .love-orbit {
             position: absolute;
             width: 0; height: 0;
@@ -74,14 +109,13 @@
             transform-style: preserve-3d;
         }
         .orbit-rotating {
-            animation: gentleRotate 20s linear infinite;
+            animation: gentleRotate 25s linear infinite;
         }
         @keyframes gentleRotate {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        /* Polaroid Card Item */
         .polaroid-card {
             position: absolute;
             width: 110px;
@@ -100,11 +134,11 @@
             object-fit: cover;
         }
 
-        /* TEXT BOX DI TENGAH-TENGAH LOVE */
+        /* TEXT BOX DI TENGAH LOVE */
         .center-message {
             position: absolute;
             width: 260px;
-            background: rgba(5, 5, 8, 0.65);
+            background: rgba(5, 5, 8, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
@@ -133,18 +167,6 @@
 
         @keyframes blink { 50% { opacity: 0; } }
 
-        /* Petunjuk Awal */
-        .start-hint {
-            position: absolute;
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            color: #666680;
-            text-transform: uppercase;
-            animation: pulse 1.5s infinite alternate;
-            cursor: pointer;
-        }
-        @keyframes pulse { 0% { opacity: 0.3; } 100% { opacity: 0.9; } }
-
         @media (max-width: 480px) {
             .polaroid-card { width: 75px; padding: 4px 4px 12px 4px; }
             .center-message { width: 180px; font-size: 0.72rem; padding: 12px; }
@@ -155,7 +177,12 @@
 <body>
 
     <div class="space-bg"></div>
-    <div class="start-hint" id="hint" onclick="startMasterpiece()">Tap anywhere to start the magic...</div>
+
+    <!-- Tombol Khusus untuk unlock Audio Browser -->
+    <div class="gatekeeper" id="auth-gate">
+        <button class="start-btn" onclick="unlockAndStart()">Open Special Gift ✨</button>
+        <p>Turn on your sound</p>
+    </div>
 
     <!-- Intro Layer -->
     <div class="intro-layer">
@@ -164,37 +191,37 @@
 
     <!-- Main Stage -->
     <div class="stage" id="main-stage">
-        <!-- Orbit Tempat Foto Berbaris Membentuk Love & Berputar -->
         <div class="love-orbit" id="orbit-node"></div>
-        
-        <!-- Pesan Surat di Tengah Love -->
         <div class="center-message" id="message-node">
             <span id="typing-text"></span><span class="cursor"></span>
         </div>
     </div>
 
-    <audio id="bgMusic" src="https://archive.org/download/greenday_202002/Green%20Day%20-%20Last%20Night%20On%20Earth.mp3" loop></audio>
+    <!-- Audio Tautan Lagu: Last Night on Earth -->
+    <audio id="bgMusic" src="https://archive.org/download/greenday_202002/Green%20Day%20-%20Last%20Night%20On%20Earth.mp3" loop preload="auto"></audio>
 
     <script>
         const ucapan = "hbd Dela Silvira... im so grateful to have you around. makasih bgt udah jadi comfort character yang selalu hadir pas dunia lagi ga asik dan pas aku lagi jatuh-jatuhnya. i mean, gimana bisa ada orang secantik, selucu, dan setinggi kamu tapi random-nya se-seru ini? wkwk. moga di usia baru ini semesta selalu baik sama kamu, sehat terus, dan semua plan kamu di-approve langit. stay as you are, del. lowkey praying we last forever... happy level up day, my favorite human! 🤍";
         
         const music = document.getElementById("bgMusic");
-        let hasStarted = false;
 
-        function startMasterpiece() {
-            if (hasStarted) return;
-            hasStarted = true;
+        // FUNGSI UTAMA UNTUK UNLOCK AUDIO & MULAI ANIMASI
+        function unlockAndStart() {
+            // Sembunyikan tombol pembuka
+            document.getElementById("auth-gate").style.opacity = "0";
+            document.getElementById("auth-gate").style.pointerEvents = "none";
 
-            document.getElementById("hint").style.display = "none";
-            
-            // Jalankan Musik Instan
-            music.play().catch(() => console.log("Audio diizinkan"));
+            // Paksa musik berjalan lewat trigger klik user langsung
+            music.play().then(() => {
+                console.log("Audio successfully loaded and playing.");
+            }).catch(err => {
+                console.log("Audio failed to play automatically:", err);
+            });
 
-            // Mulai Sekuens Animasi S3
-            runCountdown();
+            // Jalankan hitung mundur setelah tombol hilang
+            setTimeout(runCountdown, 400);
         }
 
-        // 1. ANIMASI COUNTDOWN DAN TEXT RUNNING INTRO
         function runCountdown() {
             const cd = document.getElementById("countdown-text");
             const steps = ["3", "2", "1", "HBD FOR DELA SILVIRA ✨"];
@@ -213,12 +240,10 @@
                         }
                     }, 700);
 
-                    // Beri waktu lebih lama khusus untuk teks ucapan nama terakhir
                     let delay = currentIdx === steps.length - 1 ? 2200 : 1000;
                     currentIdx++;
                     setTimeout(showStep, delay);
                 } else {
-                    // Hilangkan layer intro, munculkan panggung utama
                     cd.style.opacity = "0";
                     setTimeout(initLoveGallery, 300);
                 }
@@ -226,41 +251,32 @@
             showStep();
         }
 
-        // 2. MATEMATIKA STRUKTUR LOVE (FORMASI 15 FOTO)
         function initLoveGallery() {
             document.getElementById("main-stage").style.opacity = "1";
             const orbit = document.getElementById("orbit-node");
             const totalPhotos = 15;
-            
-            // Jarak rentang ukuran bentuk hati di layar (Disesuaikan responsif HP)
             const spreadFactor = window.innerWidth < 480 ? 11 : 18;
 
             for (let j = 1; j <= totalPhotos; j++) {
                 const card = document.createElement("div");
                 card.className = "polaroid-card";
-                card.innerHTML = `<img src="b${j}.png" alt="Memory ${j}">`;
+                card.innerHTML = `<img src="b${j}.png" alt="Dela ${j}">`;
                 orbit.appendChild(card);
 
-                // Rumus Parametrik Matematika Bentuk Hati (Heart Curve)
-                // t di-mapping dari 0 sampai 2 * PI berputar searah jarum jam
                 const t = (j / totalPhotos) * 2 * Math.PI - Math.PI/2; 
-                
                 const x = 16 * Math.pow(Math.sin(t), 3);
                 const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
 
                 const posX = x * spreadFactor;
                 const posY = y * spreadFactor;
 
-                // Memunculkan foto beruntun satu per satu memutar membentuk Love
                 setTimeout(() => {
                     card.style.opacity = "1";
-                    // Beri sedikit rotasi miring acak khas polaroid asli
                     const cardRotate = Math.random() * 16 - 8;
                     card.style.transform = `translate(calc(-50% + ${posX}px), calc(-50% + ${posY}px)) rotate(${cardRotate}deg) scale(1)`;
-                }, j * 200); // Delay jeda antar foto keluar (efek mengalir)
+                }, j * 200);
             }
 
-            // Setelah semua foto rapi membentuk love, munculkan surat & putar formasinya
             setTimeout(() => {
                 document.getElementById("message-node").classList.add("pop");
                 orbit.classList.add("orbit-rotating");
@@ -268,7 +284,6 @@
             }, (totalPhotos * 200) + 1000);
         }
 
-        // 3. ANIMASI MESIN KETIK SURAT DI TENGAH LOVE
         let charIdx = 0;
         function startTyping() {
             const box = document.getElementById("typing-text");
