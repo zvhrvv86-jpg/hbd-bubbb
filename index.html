@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Dela Silvira ❤</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #0b0b0e;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Latar Belakang Bintang Malam */
+        #stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 2s infinite alternate;
+        }
+
+        /* Konten Utama */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            width: 90%;
+            text-align: center;
+            margin-top: 5vh;
+            margin-bottom: 5vh;
+        }
+
+        h1 {
+            font-size: 2.3rem;
+            color: #ff7597;
+            text-shadow: 0 0 15px rgba(255, 117, 151, 0.4);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #a0a0b5;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+        }
+
+        /* Surat Ketik Otomatis */
+        .letter-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 15px;
+            padding: 25px;
+            min-height: 150px;
+            text-align: left;
+            line-height: 1.7;
+            color: #e2e2e9;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            margin-bottom: 40px;
+            font-size: 1.05rem;
+        }
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            background-color: #ff7597;
+            animation: blink 0.7s infinite;
+            margin-left: 2px;
+        }
+
+        /* Polaroid Aesthetic Grid */
+        .gallery-title {
+            color: #ff7597;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .polaroid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .polaroid {
+            background: #ffffff;
+            padding: 10px 10px 22px 10px;
+            box-shadow: 0 12px 20px rgba(0,0,0,0.6);
+            border-radius: 2px;
+            transform: rotate(var(--r));
+            transition: all 0.4s ease;
+            cursor: pointer;
+            width: 100%;
+        }
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.1);
+            z-index: 10;
+            box-shadow: 0 20px 35px rgba(255, 117, 151, 0.3);
+        }
+        .polaroid img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            filter: contrast(95%) brightness(95%);
+        }
+        .polaroid .caption {
+            font-family: 'Courier New', Courier, monospace;
+            color: #333333;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Tombol Musik */
+        .music-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(255, 117, 151, 0.15);
+            border: 1px solid #ff7597;
+            color: #ff7597;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        .music-btn.playing {
+            background: #ff7597;
+            color: #fff;
+            box-shadow: 0 0 15px #ff7597;
+        }
+
+        /* Animasi */
+        @keyframes pulse { 0% { opacity: 0.2; } 100% { opacity: 0.8; } }
+        @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            .polaroid-container { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .polaroid { padding: 8px 8px 18px 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Efek Bintang Bergerak -->
+    <div id="stars"></div>
+
+    <div class="container">
+        <h1>Happy Birthday, Dela Silvira ✨</h1>
+        <p class="subtitle">MY CUTE GIRL & MY MOMENT SAVIOR ❤</p>
+
+        <!-- Kotak Pesan Ketik Otomatis -->
+        <div class="letter-box">
+            <span id="typing-text"></span><span class="cursor">&nbsp;</span>
+        </div>
+
+        <p class="gallery-title">Memory Lane 📸</p>
+        
+        <!-- Galeri Foto Polaroid (b1.png sampai b15.png) -->
+        <div class="polaroid-container">
+            <div class="polaroid" style="--r: -3deg"><img src="b1.png" alt="Dela 1"><div class="caption">the prettiest 🤍</div></div>
+            <div class="polaroid" style="--r: 4deg"><img src="b2.png" alt="Dela 2"><div class="caption">cute soul 🥰</div></div>
+            <div class="polaroid" style="--r: -2deg"><img src="b3.png" alt="Dela 3"><div class="caption">my favorite smile ✨</div></div>
+            <div class="polaroid" style="--r: 5deg"><img src="b4.png" alt="Dela 4"><div class="caption">precious moment 🔐</div></div>
+            <div class="polaroid" style="--r: -4deg"><img src="b5.png" alt="Dela 5"><div class="caption">stay beautiful 🌸</div></div>
+            <div class="polaroid" style="--r: 2deg"><img src="b6.png" alt="Dela 6"><div class="caption">brightest star 🌟</div></div>
+            <div class="polaroid" style="--r: -5deg"><img src="b7.png" alt="Dela 7"><div class="caption">funny & lovely 🧸</div></div>
+            <div class="polaroid" style="--r: 3deg"><img src="b8.png" alt="Dela 8"><div class="caption">warmest heart ❤️</div></div>
+            <div class="polaroid" style="--r: -1deg"><img src="b9.png" alt="Dela 9"><div class="caption">perfect as you are ✨</div></div>
+            <div class="polaroid" style="--r: 4deg"><img src="b10.png" alt="Dela 10"><div class="caption">laughing with you 💬</div></div>
+            <div class="polaroid" style="--r: -3deg"><img src="b11.png" alt="Dela 11"><div class="caption">my support system 🤝</div></div>
+            <div class="polaroid" style="--r: 5deg"><img src="b12.png" alt="Dela 12"><div class="caption">unconditional 🤍</div></div>
+            <div class="polaroid" style="--r: -2deg"><img src="b13.png" alt="Dela 13"><div class="caption">cherish you always 💎</div></div>
+            <div class="polaroid" style="--r: 3deg"><img src="b14.png" alt="Dela 14"><div class="caption">you & me 🌌</div></div>
+            <div class="polaroid" style="--r: -4deg"><img src="b15.png" alt="Dela 15"><div class="caption">forever yours 🔒</div></div>
+        </div>
+    </div>
+
+    <!-- Tombol Audio Musik -->
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
+    
+    <!-- Audio Tautan Lagu: Last Night on Earth - Green Day -->
+    <audio id="bgMusic" src="https://archive.org/download/greenday_202002/Green%20Day%20-%20Last%20Night%20On%20Earth.mp3" loop></audio>
+
+    <script>
+        // Teks Ucapan Kustom buat Dela
+        const ucapan = "Selamat ulang tahun untuk seseorang yang kehadirannya sangat berarti buat aku, Dela Silvira. ✨ Di hari spesialmu ini, aku cuma mau bilang terima kasih banyak ya. Terima kasih karena kamu selalu ada dan hadir di saat aku sedang jatuh, menjadi alasan buat aku tersenyum lagi dengan segala tingkahmu yang lucu, cantik, dan menggemaskan itu. Kamu bener-bener berkah terindah di hidup aku. Semoga di usiamu yang baru ini, kebahagiaan selalu memelukmu, sehat terus, dan semua mimpi-mimpimu bisa tercapai. Tetap jadi diri kamu yang seperti ini ya... Aku berdoa dan berharap, semoga kita bisa terus bersama untuk selamanya. Happy Birthday, my cute girl! 🤍";
+
+        let index = 0;
+        function typeWriter() {
+            if (index < ucapan.length) {
+                document.getElementById("typing-text").innerHTML += ucapan.charAt(index);
+                index++;
+                setTimeout(typeWriter, 45); // Kecepatan mengetik
+            }
+        }
+
+        // Efek Dekorasi Bintang Malam otomatis
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 80; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2.5 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+            starsContainer.appendChild(star);
+        }
+
+        // Kontrol Pemutar Musik
+        const music = document.getElementById("bgMusic");
+        const btn = document.getElementById("musicBtn");
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play().then(() => {
+                    btn.innerHTML = "⏸";
+                    btn.classList.add("playing");
+                }).catch(err => console.log("Interaksi diblokir browser, coba klik lagi."));
+            } else {
+                music.pause();
+                btn.innerHTML = "▶";
+                btn.classList.remove("playing");
+            }
+        }
+
+        // Mulai ketik otomatis saat web dibuka
+        window.onload = function() {
+            setTimeout(typeWriter, 1000);
+            
+            // Trigger musik menyala otomatis pada ketukan layar pertama kali (buat bypass proteksi browser)
+            document.body.addEventListener('click', function() {
+                if(music.paused && !btn.classList.contains('playing')) {
+                    toggleMusic();
+                }
+            }, { once: true });
+        };
+    </script>
+</body>
+</html>
