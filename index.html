@@ -11,9 +11,9 @@
             padding: 0;
         }
         body {
-            background-color: #0b0b0e;
+            background-color: #09090c;
             color: #ffffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
@@ -21,8 +21,8 @@
             min-height: 100vh;
         }
 
-        /* Latar Belakang Bintang Malam */
-        #stars {
+        /* Latar Belakang Interaktif (Bintang & Hati Neon) */
+        #bg-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -30,12 +30,6 @@
             height: 100%;
             pointer-events: none;
             z-index: 1;
-        }
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: pulse 2s infinite alternate;
         }
 
         /* Konten Utama */
@@ -45,166 +39,177 @@
             max-width: 700px;
             width: 90%;
             text-align: center;
-            margin-top: 5vh;
-            margin-bottom: 5vh;
+            margin-top: 6vh;
+            margin-bottom: 6vh;
         }
 
         h1 {
-            font-size: 2.3rem;
-            color: #ff7597;
-            text-shadow: 0 0 15px rgba(255, 117, 151, 0.4);
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff7597, #ffb3c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(255, 117, 151, 0.3));
             margin-bottom: 5px;
         }
 
         .subtitle {
-            font-size: 0.9rem;
-            color: #a0a0b5;
-            letter-spacing: 3px;
-            margin-bottom: 30px;
+            font-size: 0.85rem;
+            color: #7c7c93;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 35px;
         }
 
-        /* Surat Ketik Otomatis */
+        /* Kotak Surat Ketik Otomatis - Glassmorphism */
         .letter-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 15px;
-            padding: 25px;
-            min-height: 150px;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            min-height: 160px;
             text-align: left;
-            line-height: 1.7;
-            color: #e2e2e9;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-            margin-bottom: 40px;
+            line-height: 1.8;
+            color: #e4e4eb;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+            margin-bottom: 50px;
             font-size: 1.05rem;
         }
         .cursor {
             display: inline-block;
-            width: 8px;
+            width: 6px;
+            height: 1.1rem;
             background-color: #ff7597;
-            animation: blink 0.7s infinite;
-            margin-left: 2px;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+            margin-left: 4px;
         }
 
-        /* Polaroid Aesthetic Grid */
+        /* Polaroid Grid Modern */
         .gallery-title {
             color: #ff7597;
-            margin-bottom: 25px;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
+            font-weight: 600;
+            opacity: 0.9;
         }
 
         .polaroid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
             justify-content: center;
         }
 
         .polaroid {
             background: #ffffff;
-            padding: 10px 10px 22px 10px;
-            box-shadow: 0 12px 20px rgba(0,0,0,0.6);
-            border-radius: 2px;
+            padding: 12px 12px 28px 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+            border-radius: 4px;
             transform: rotate(var(--r));
-            transition: all 0.4s ease;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             width: 100%;
         }
         .polaroid:hover {
-            transform: rotate(0deg) scale(1.1);
+            transform: rotate(0deg) scale(1.08) translateY(-10px);
             z-index: 10;
-            box-shadow: 0 20px 35px rgba(255, 117, 151, 0.3);
+            box-shadow: 0 25px 45px rgba(255, 117, 151, 0.25);
         }
         .polaroid img {
             width: 100%;
             aspect-ratio: 1/1;
             object-fit: cover;
-            filter: contrast(95%) brightness(95%);
+            filter: contrast(98%) brightness(96%);
         }
         .polaroid .caption {
             font-family: 'Courier New', Courier, monospace;
-            color: #333333;
-            font-weight: bold;
+            color: #1a1a1a;
+            font-weight: 700;
             font-size: 0.8rem;
-            margin-top: 10px;
+            margin-top: 12px;
             text-align: center;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        /* Tombol Musik */
+        /* Tombol Musik Minimalis */
         .music-btn {
             position: fixed;
-            bottom: 25px;
-            right: 25px;
-            background: rgba(255, 117, 151, 0.15);
-            border: 1px solid #ff7597;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 117, 151, 0.1);
+            border: 1px solid rgba(255, 117, 151, 0.4);
             color: #ff7597;
             width: 55px;
             height: 55px;
             border-radius: 50%;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 100;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             transition: all 0.3s ease;
         }
         .music-btn.playing {
             background: #ff7597;
             color: #fff;
-            box-shadow: 0 0 15px #ff7597;
+            box-shadow: 0 0 20px rgba(255, 117, 151, 0.6);
+            border-color: #ff7597;
         }
 
-        /* Animasi */
-        @keyframes pulse { 0% { opacity: 0.2; } 100% { opacity: 0.8; } }
+        /* Animasi Kursor */
         @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
 
         @media (max-width: 480px) {
-            h1 { font-size: 1.8rem; }
-            .polaroid-container { grid-template-columns: 1fr 1fr; gap: 12px; }
-            .polaroid { padding: 8px 8px 18px 8px; }
+            h1 { font-size: 2rem; }
+            .polaroid-container { grid-template-columns: 1fr 1fr; gap: 15px; }
+            .polaroid { padding: 8px 8px 20px 8px; }
+            .letter-box { padding: 20px; font-size: 0.95rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Efek Bintang Bergerak -->
-    <div id="stars"></div>
+    <!-- Canvas Khusus Animasi S3 (Stars + Floating Hearts) -->
+    <canvas id="bg-canvas"></canvas>
 
     <div class="container">
-        <h1>Happy Birthday, Dela Silvira ✨</h1>
-        <p class="subtitle">MY CUTE GIRL & MY MOMENT SAVIOR ❤</p>
+        <h1>happy level up day, dela. ✨</h1>
+        <p class="subtitle">especially for dela silvira 🔐</p>
 
         <!-- Kotak Pesan Ketik Otomatis -->
         <div class="letter-box">
-            <span id="typing-text"></span><span class="cursor">&nbsp;</span>
+            <span id="typing-text"></span><span class="cursor"></span>
         </div>
 
-        <p class="gallery-title">Memory Lane 📸</p>
+        <p class="gallery-title">visualizing my favorite human 📸</p>
         
         <!-- Galeri Foto Polaroid (b1.png sampai b15.png) -->
         <div class="polaroid-container">
-            <div class="polaroid" style="--r: -3deg"><img src="b1.png" alt="Dela 1"><div class="caption">the prettiest 🤍</div></div>
-            <div class="polaroid" style="--r: 4deg"><img src="b2.png" alt="Dela 2"><div class="caption">cute soul 🥰</div></div>
-            <div class="polaroid" style="--r: -2deg"><img src="b3.png" alt="Dela 3"><div class="caption">my favorite smile ✨</div></div>
-            <div class="polaroid" style="--r: 5deg"><img src="b4.png" alt="Dela 4"><div class="caption">precious moment 🔐</div></div>
-            <div class="polaroid" style="--r: -4deg"><img src="b5.png" alt="Dela 5"><div class="caption">stay beautiful 🌸</div></div>
-            <div class="polaroid" style="--r: 2deg"><img src="b6.png" alt="Dela 6"><div class="caption">brightest star 🌟</div></div>
-            <div class="polaroid" style="--r: -5deg"><img src="b7.png" alt="Dela 7"><div class="caption">funny & lovely 🧸</div></div>
-            <div class="polaroid" style="--r: 3deg"><img src="b8.png" alt="Dela 8"><div class="caption">warmest heart ❤️</div></div>
-            <div class="polaroid" style="--r: -1deg"><img src="b9.png" alt="Dela 9"><div class="caption">perfect as you are ✨</div></div>
-            <div class="polaroid" style="--r: 4deg"><img src="b10.png" alt="Dela 10"><div class="caption">laughing with you 💬</div></div>
-            <div class="polaroid" style="--r: -3deg"><img src="b11.png" alt="Dela 11"><div class="caption">my support system 🤝</div></div>
-            <div class="polaroid" style="--r: 5deg"><img src="b12.png" alt="Dela 12"><div class="caption">unconditional 🤍</div></div>
-            <div class="polaroid" style="--r: -2deg"><img src="b13.png" alt="Dela 13"><div class="caption">cherish you always 💎</div></div>
-            <div class="polaroid" style="--r: 3deg"><img src="b14.png" alt="Dela 14"><div class="caption">you & me 🌌</div></div>
-            <div class="polaroid" style="--r: -4deg"><img src="b15.png" alt="Dela 15"><div class="caption">forever yours 🔒</div></div>
+            <div class="polaroid" style="--r: -3deg"><img src="b1.png" alt="Dela 1"><div class="caption">the standard 🤍</div></div>
+            <div class="polaroid" style="--r: 4deg"><img src="b2.png" alt="Dela 2"><div class="caption">cute core 🥰</div></div>
+            <div class="polaroid" style="--r: -2deg"><img src="b3.png" alt="Dela 3"><div class="caption">1000/10 smile ✨</div></div>
+            <div class="polaroid" style="--r: 5deg"><img src="b4.png" alt="Dela 4"><div class="caption">rent free in my mind 🔐</div></div>
+            <div class="polaroid" style="--r: -4deg"><img src="b5.png" alt="Dela 5"><div class="caption">stunning bgt 🌸</div></div>
+            <div class="polaroid" style="--r: 2deg"><img src="b6.png" alt="Dela 6"><div class="caption">main character energy 🌟</div></div>
+            <div class="polaroid" style="--r: -5deg"><img src="b7.png" alt="Dela 7"><div class="caption">lucu pol 🧸</div></div>
+            <div class="polaroid" style="--r: 3deg"><img src="b8.png" alt="Dela 8"><div class="caption">my safe place ❤️</div></div>
+            <div class="polaroid" style="--r: -1deg"><img src="b9.png" alt="Dela 9"><div class="caption">no rules, just vibe ✨</div></div>
+            <div class="polaroid" style="--r: 4deg"><img src="b10.png" alt="Dela 10"><div class="caption">laughing check 💬</div></div>
+            <div class="polaroid" style="--r: -3deg"><img src="b11.png" alt="Dela 11"><div class="caption">my comfort human 🤝</div></div>
+            <div class="polaroid" style="--r: 5deg"><img src="b12.png" alt="Dela 12"><div class="caption">unreal 🤍</div></div>
+            <div class="polaroid" style="--r: -2deg"><img src="b13.png" alt="Dela 13"><div class="caption">precious bgt gapaham 💎</div></div>
+            <div class="polaroid" style="--r: 3deg"><img src="b14.png" alt="Dela 14"><div class="caption">you & me vs the world 🌌</div></div>
+            <div class="polaroid" style="--r: -4deg"><img src="b15.png" alt="Dela 15"><div class="caption">locked for life 🔒</div></div>
         </div>
     </div>
 
@@ -215,33 +220,104 @@
     <audio id="bgMusic" src="https://archive.org/download/greenday_202002/Green%20Day%20-%20Last%20Night%20On%20Earth.mp3" loop></audio>
 
     <script>
-        // Teks Ucapan Kustom buat Dela
-        const ucapan = "Selamat ulang tahun untuk seseorang yang kehadirannya sangat berarti buat aku, Dela Silvira. ✨ Di hari spesialmu ini, aku cuma mau bilang terima kasih banyak ya. Terima kasih karena kamu selalu ada dan hadir di saat aku sedang jatuh, menjadi alasan buat aku tersenyum lagi dengan segala tingkahmu yang lucu, cantik, dan menggemaskan itu. Kamu bener-bener berkah terindah di hidup aku. Semoga di usiamu yang baru ini, kebahagiaan selalu memelukmu, sehat terus, dan semua mimpi-mimpimu bisa tercapai. Tetap jadi diri kamu yang seperti ini ya... Aku berdoa dan berharap, semoga kita bisa terus bersama untuk selamanya. Happy Birthday, my cute girl! 🤍";
+        // Teks Ucapan Gaya Gen-Z (Deep, Aesthetic, No Cringe)
+        const ucapan = "hbd Dela Silvira... gabasa-basi tapi i just wanna say, im so grateful to have you in my life. makasih bgt udah mau jadi comfort character yang selalu ada, terutama pas dunia lagi ga asik dan aku lagi jatuh-jatuhnya. i mean, gimana bisa ada orang secantik, selucu, dan setinggi kamu tapi random-nya dapet bgt? wkwk. pokoknya di usia yang baru ini, semoga semesta selalu baik sama kamu, sehat terus, dan semua plan kamu di-approve semesta. stay as you are ya, del. btw, lowkey praying we last forever... gapapa kan? happy birthday, my favorite human! 🤍";
 
         let index = 0;
         function typeWriter() {
             if (index < ucapan.length) {
                 document.getElementById("typing-text").innerHTML += ucapan.charAt(index);
                 index++;
-                setTimeout(typeWriter, 45); // Kecepatan mengetik
+                setTimeout(typeWriter, 40); // Kecepatan ketik pas
             }
         }
 
-        // Efek Dekorasi Bintang Malam otomatis
-        const starsContainer = document.getElementById('stars');
-        for (let i = 0; i < 80; i++) {
-            const star = document.createElement('div');
-            star.className = 'star';
-            const size = Math.random() * 2.5 + 1;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.left = `${Math.random() * 100}%`;
-            star.style.top = `${Math.random() * 100}%`;
-            star.style.animationDelay = `${Math.random() * 2}s`;
-            starsContainer.appendChild(star);
+        // --- ANIMASI LEVEL S3: CANVAS PARTIKEL STARS & NEON HEARTS ---
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Buat data objek partikel
+        function createParticles() {
+            // 1. Tambah Bintang Statis/Kelap-kelip
+            for (let i = 0; i < 60; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2,
+                    type: 'star',
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.02 + 0.005
+                });
+            }
+            // 2. Tambah Hati yang meluncur ke atas
+            for (let i = 0; i < 20; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: canvas.height + Math.random() * 200,
+                    size: Math.random() * 10 + 8,
+                    type: 'heart',
+                    speed: Math.random() * 0.6 + 0.2,
+                    wobble: Math.random() * 2,
+                    wobbleSpeed: Math.random() * 0.02 + 0.01,
+                    alpha: Math.random() * 0.5 + 0.2
+                });
+            }
         }
 
-        // Kontrol Pemutar Musik
+        function drawHeart(x, y, size) {
+            ctx.beginPath();
+            ctx.moveTo(x, y + size / 4);
+            ctx.quadraticCurveTo(x, y, x + size / 2, y);
+            ctx.quadraticCurveTo(x + size, y, x + size, y + size / 3);
+            ctx.quadraticCurveTo(x + size, y + size * (2/3), x, y + size);
+            ctx.quadraticCurveTo(x - size, y + size * (2/3), x - size, y + size / 3);
+            ctx.quadraticCurveTo(x - size, y, x - size / 2, y);
+            ctx.quadraticCurveTo(x, y, x, y + size / 4);
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(p => {
+                if (p.type === 'star') {
+                    p.alpha += p.speed;
+                    if (p.alpha > 1 || p.alpha < 0) p.speed = -p.speed;
+                    ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(p.alpha)})`;
+                    ctx.fillRect(p.x, p.y, p.size, p.size);
+                } else if (p.type === 'heart') {
+                    p.y -= p.speed;
+                    p.wobble += p.wobbleSpeed;
+                    let currentX = p.x + Math.sin(p.wobble) * 15;
+                    
+                    ctx.fillStyle = `rgba(255, 117, 151, ${p.alpha})`;
+                    drawHeart(currentX, p.y, p.size);
+
+                    // Reset posisi kalau sudah lewat atas layar
+                    if (p.y < -20) {
+                        p.y = canvas.height + 20;
+                        p.x = Math.random() * canvas.width;
+                    }
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        createParticles();
+        animate();
+
+        // --- KONTROL MUSIK ---
         const music = document.getElementById("bgMusic");
         const btn = document.getElementById("musicBtn");
 
@@ -250,7 +326,7 @@
                 music.play().then(() => {
                     btn.innerHTML = "⏸";
                     btn.classList.add("playing");
-                }).catch(err => console.log("Interaksi diblokir browser, coba klik lagi."));
+                }).catch(err => console.log("Blocked by browser."));
             } else {
                 music.pause();
                 btn.innerHTML = "▶";
@@ -258,11 +334,10 @@
             }
         }
 
-        // Mulai ketik otomatis saat web dibuka
         window.onload = function() {
-            setTimeout(typeWriter, 1000);
+            setTimeout(typeWriter, 1200);
             
-            // Trigger musik menyala otomatis pada ketukan layar pertama kali (buat bypass proteksi browser)
+            // Auto play pas ketukan pertama di layar
             document.body.addEventListener('click', function() {
                 if(music.paused && !btn.classList.contains('playing')) {
                     toggleMusic();
