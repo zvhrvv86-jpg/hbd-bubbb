@@ -3,167 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy 22nd Dela Silvira!</title>
+    <title>Happy Birthday Dela Silvira!</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body, html {
-            height: 100%;
-            background: linear-gradient(135deg, #1f1c2c, #928dab);
-            color: #fff;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
-        }
-        .main-wrapper {
-            position: relative;
+        body {
+            margin: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            background: url('aurora.jpg') no-repeat center center fixed;
+            background-size: cover;
+            animation: rotateBackground 20s linear infinite;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
         }
-        .photo-stage {
-            width: 300px;
-            height: 300px;
-            margin: 20px auto;
-            border: 4px solid #ff69b4;
-            border-radius: 15px;
-            overflow: hidden;
+        @keyframes rotateBackground {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .countdown {
+            font-size: 6rem;
+            animation: fadeIn 1s ease forwards;
+        }
+        .text {
+            font-size: 3rem;
+            margin-top: 30px;
             opacity: 0;
-            transform: scale(0.9);
-            transition: all 0.6s ease-in-out;
-        }
-        .photo-stage.active {
-            opacity: 1;
-            transform: scale(1);
-        }
-        .photo-stage img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .text-stage {
-            margin-top: 20px;
+            animation: fadeIn 2s ease forwards;
+            animation-delay: 3s;
             text-align: center;
-            max-width: 600px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px;
-            border-radius: 15px;
         }
-        .text-line {
-            font-size: 1.2rem;
-            line-height: 1.8;
+        .text span {
+            display: block;
             opacity: 0;
-            animation: fadeIn 1s forwards;
-        }
-        .hint {
-            position: absolute;
-            top: 20px;
-            font-size: 0.8rem;
-            color: #ff69b4;
-            letter-spacing: 2px;
-            animation: pulse 1.5s infinite alternate;
+            animation: fadeText 1s ease forwards;
         }
         @keyframes fadeIn {
             to { opacity: 1; }
         }
-        @keyframes pulse {
-            0% { opacity: 0.3; }
-            100% { opacity: 0.8; }
-        }
-        .music-indicator {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            color: #ff69b4;
-            font-size: 0.9rem;
-            opacity: 0.7;
+        @keyframes fadeText {
+            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(20px); }
         }
     </style>
 </head>
 <body>
-    <div class="main-wrapper" onclick="nextStep()">
-        <div class="hint">Tap anywhere to start the journey...</div>
-
-        <div class="photo-stage" id="photo-stage">
-            <img src="b1.png" id="photo-img" alt="Memory">
-        </div>
-
-        <div class="text-stage">
-            <div class="text-line" id="text-line"></div>
-        </div>
+    <div class="countdown" id="countdown">3</div>
+    <div class="text">
+        <span style="animation-delay: 3.5s;">Happy</span>
+        <span style="animation-delay: 4s;">Birthday</span>
+        <span style="animation-delay: 4.5s;">To</span>
+        <span style="animation-delay: 5s;">Dela Silvira</span>
     </div>
 
-    <div class="music-indicator" id="music-status">🎵 Last Night on Earth</div>
-    <audio id="bgMusic" src="https://archive.org/download/greenday_202002/Green%20Day%20-%20Last%20Night%20On%20Earth.mp3" loop></audio>
-
     <script>
-        const story = [
-            { text: "Hey Dela Silvira, happy level up ke-22! 🎉", img: "b1.png" },
-            { text: "Kamu itu bener-bener main character energy!", img: "b2.png" },
-            { text: "Makasi udah jadi cahaya di hidupku, selalu ada.", img: "b3.png" },
-            { text: "Di usia 22, semoga semua mimpi kamu tercapai ya! 🌟", img: "b4.png" },
-            { text: "Jangan lupa ketawa, jangan lupa chill.", img: "b5.png" },
-            { text: "Kamu cantik, lucu, dan bener-bener inspirasiku!", img: "b6.png" },
-            { text: "Selalu jadi diri kamu, itu yang paling keren. ✨", img: "b7.png" },
-            { text: "Semoga hari-harimu dipenuhi cinta dan petualangan.", img: "b8.png" },
-            { text: "Happy birthday, Dela! You rock my world! 💖", img: "b9.png" },
-            { text: "Dan ingat, kita vs dunia, forever! 🔒", img: "b10.png" },
-            { text: "I’m so glad you’re here, di setiap langkah.", img: "b11.png" },
-            { text: "Tiap hari sama kamu, itu hadiah terbesar.", img: "b12.png" },
-            { text: "Stay wild, stay kind, stay you. 🦋", img: "b13.png" },
-            { text: "Cheers to us, cheers to dreams, cheers to 22! 🍾", img: "b14.png" },
-            { text: "Selamat ulang tahun, Dela, love you forever! ❤️", img: "b15.png" }
-        ];
+        let countdown = document.getElementById('countdown');
+        let count = 3;
 
-        let currentStep = 0;
-        let isTyping = false;
-        const music = document.getElementById("bgMusic");
-
-        function typeEffect(element, text, speed = 40) {
-            element.innerHTML = "";
-            let i = 0;
-            isTyping = true;
-            function typing() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(typing, speed);
-                } else {
-                    isTyping = false;
-                }
-            }
-            typing();
-        }
-
-        function nextStep() {
-            if (music.paused) {
-                music.play().catch(e => console.log("Audio diputar!"));
-                document.getElementById("music-status").innerHTML = "🔊 Playing...";
-            }
-            if (isTyping) return;
-            if (currentStep < story.length) {
-                const photoStage = document.getElementById("photo-stage");
-                const photoImg = document.getElementById("photo-img");
-                const textLine = document.getElementById("text-line");
-
-                photoStage.classList.remove("active");
-
-                setTimeout(() => {
-                    photoImg.src = story[currentStep].img;
-                    typeEffect(textLine, story[currentStep].text);
-
-                    photoStage.classList.add("active");
-                    currentStep++;
-                }, 300);
+        let interval = setInterval(() => {
+            count--;
+            if (count === 0) {
+                countdown.style.display = 'none';
+                clearInterval(interval);
             } else {
-                currentStep = 0;
-                nextStep();
+                countdown.innerText = count;
             }
-        }
-
-        window.onload = function() {
-            nextStep();
-        };
+        }, 1000);
     </script>
 </body>
 </html>
